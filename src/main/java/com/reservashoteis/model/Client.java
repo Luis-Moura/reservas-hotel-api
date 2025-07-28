@@ -2,8 +2,8 @@ package com.reservashoteis.model;
 
 public class Client {
     private long id;
-    private final String name;
-    private final String email;
+    private String name;
+    private String email;
 
     public Client(String name, String email) {
         if (name == null || name.isEmpty() || email == null || email.isEmpty()) {
@@ -33,6 +33,26 @@ public class Client {
 
         this.id = id;
         this.name = name;
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
+
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be null or empty");
+        }
+
+        if (!email.contains("@")) {
+            throw new IllegalArgumentException("Email must contain '@'");
+        }
+
         this.email = email;
     }
 
