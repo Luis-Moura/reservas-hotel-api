@@ -29,7 +29,8 @@ public class ClientServiceImpl implements ClientServiceInterface {
 
     @Override
     public Client findClientById(Long id) {
-        return null;
+        return clientDao.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Client not found with id: " + id));
     }
 
     @Override
