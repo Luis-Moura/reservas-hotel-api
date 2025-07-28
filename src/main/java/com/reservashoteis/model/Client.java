@@ -5,7 +5,24 @@ public class Client {
     private String name;
     private String email;
 
+    public Client(String name, String email) {
+        if (name == null || name.isEmpty() || email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
+
+        if (!email.contains("@")) {
+            throw new IllegalArgumentException("Email must contain '@'");
+        }
+
+        this.name = name;
+        this.email = email;
+    }
+
     public Client(long id, String name, String email) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID must be greater than zero");
+        }
+
         if (name == null || name.isEmpty() || email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
