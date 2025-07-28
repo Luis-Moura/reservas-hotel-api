@@ -10,6 +10,8 @@ public interface ClientDaoInterface {
 
     Optional<Client> findById(Long id);
 
+    Optional<Client> findByEmail(String email);
+
     List<Client> findAll();
 
     boolean update(Client client);

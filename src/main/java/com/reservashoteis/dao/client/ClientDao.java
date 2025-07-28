@@ -19,39 +19,46 @@ public class ClientDao implements ClientDaoInterface {
     private final RowMapper<Client> clientMapper = (resultSet, rowNum) ->
             new Client(
                     resultSet.getLong("id"),
-                    resultSet.getString("name"),
+                    resultSet.getString("nome"),
                     resultSet.getString("email")
             );
 
     @Override
     public void save(Client client) {
-        String sql = "INSERT INTO clients (name, email) VALUES (?, ?)";
+        String sql = "INSERT INTO clientes (nome, email) VALUES (?, ?)";
         jdbcTemplate.update(sql, client.getName(), client.getEmail());
     }
 
     @Override
     public Optional<Client> findById(Long id) {
-        String sql = "SELECT * FROM clients WHERE id = ?";
+        String sql = "SELECT * FROM clientes WHERE id = ?";
         List<Client> results = jdbcTemplate.query(sql, clientMapper, id);
         return results.stream().findFirst();
     }
 
     @Override
+    public Optional<Client> findByEmail(String email) {
+        String sql = "SELECT * FROM clientes WHERE email = ?";
+        List<Client> results = jdbcTemplate.query(sql, clientMapper, email);
+        return results.stream().findFirst();
+    }
+
+    @Override
     public List<Client> findAll() {
-        String sql = "SELECT * FROM clients";
+        String sql = "SELECT * FROM clientes";
         return jdbcTemplate.query(sql, clientMapper);
     }
 
     @Override
     public boolean update(Client client) {
-        String sql = "UPDATE clients SET name = ?, email = ? WHERE id = ?";
+        String sql = "UPDATE clientes SET nome = ?, email = ? WHERE id = ?";
         int rowsAffected = jdbcTemplate.update(sql, client.getName(), client.getEmail(), client.getId());
         return rowsAffected > 0;
     }
 
     @Override
     public boolean delete(Long id) {
-        String sql = "DELETE FROM clients WHERE id = ?";
+        String sql = "DELETE FROM clientes WHERE id = ?";
         int rowsAffected = jdbcTemplate.update(sql, id);
         return rowsAffected > 0;
     }
