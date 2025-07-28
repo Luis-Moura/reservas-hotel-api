@@ -2,8 +2,8 @@ package com.reservashoteis.model;
 
 public class Client {
     private long id;
-    private String name;
-    private String email;
+    private final String name;
+    private final String email;
 
     public Client(String name, String email) {
         if (name == null || name.isEmpty() || email == null || email.isEmpty()) {
