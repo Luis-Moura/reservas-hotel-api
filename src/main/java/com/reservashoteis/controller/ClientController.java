@@ -1,6 +1,7 @@
 package com.reservashoteis.controller;
 
 import com.reservashoteis.dto.request.ClientRequestDto;
+import com.reservashoteis.dto.response.ClientResponseDto;
 import com.reservashoteis.model.Client;
 import com.reservashoteis.services.client.ClientServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +25,28 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Client> findClientById(@PathVariable Long id) {
-        Client response = clientService.findClientById(id);
+    public ResponseEntity<ClientResponseDto> findClientById(@PathVariable Long id) {
+        Client client = clientService.findClientById(id);
+
+        ClientResponseDto response = new ClientResponseDto(
+                client.getId(),
+                client.getName(),
+                client.getEmail()
+        );
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Client>> findAllClients() {
-        List<Client> response = clientService.findAllClients();
+    public ResponseEntity<List<ClientResponseDto>> findAllClients() {
+        List<Client> clients = clientService.findAllClients();
+
+        List<ClientResponseDto> response = clients.stream()
+                .map(client -> new ClientResponseDto(
+                        client.getId(),
+                        client.getName(),
+                        client.getEmail()))
+                .toList();
 
         return ResponseEntity.ok(response);
     }
