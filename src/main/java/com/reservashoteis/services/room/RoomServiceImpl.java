@@ -1,19 +1,22 @@
 package com.reservashoteis.services.room;
+
 import java.util.List;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.reservashoteis.dao.room.RoomDaoInterface;
 import com.reservashoteis.dto.request.RoomRequestDto;
 import com.reservashoteis.model.Room;
 
+@Service
 public class RoomServiceImpl implements RoomServiceInterface {
     @Autowired
     private RoomDaoInterface roomDao;
-    
+
     @Override
     public void createRoom(RoomRequestDto roomRequestDto) {
         Room room = new Room(roomRequestDto.number(), roomRequestDto.roomType(), roomRequestDto.dailyPrice());
-
+        System.out.println(roomRequestDto.number());
         Room existingRoom = roomDao.findByNumber(roomRequestDto.number()).orElse(null);
 
         if (existingRoom != null) {
@@ -22,7 +25,7 @@ public class RoomServiceImpl implements RoomServiceInterface {
 
         roomDao.save(room);
     }
-    
+
     @Override
     public Room findRoomById(Long id) {
         return roomDao.findById(id).orElseThrow(() -> new IllegalArgumentException("Client not found with id: " + id));
@@ -42,16 +45,12 @@ public class RoomServiceImpl implements RoomServiceInterface {
     @Override
     public void updateRoom(Long id, RoomRequestDto roomRequestDto) {
         Room existingRoom = roomDao.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Client not found with id: " + id));
-        
-        if (existingRoom.getNumber() == roomRequestDto.number()) {
-            throw new IllegalArgumentException("Cannot update room with the same number");
-        }
-        if (Objects.equals(existingRoom.getRoomType(),roomRequestDto.roomType())) {
-            throw new IllegalArgumentException("Cannot update room with the same room type");
-        }
-        if (Objects.equals(existingRoom.getDailyPrice(), roomRequestDto.dailyPrice())) {
-            throw new IllegalArgumentException("Cannot update room with the same daily price");
+                .orElseThrow(() -> new IllegalArgumentException("Room not found with id: " + id));
+
+        if (existingRoom.getNumber() == roomRequestDto.number()
+                && Objects.equals(existingRoom.getRoomType(), roomRequestDto.roomType())
+                && Objects.equals(existingRoom.getDailyPrice(), roomRequestDto.dailyPrice())) {
+            throw new IllegalArgumentException("No have changes to update");
         }
 
         existingRoom.setNumber(roomRequestDto.number());
@@ -64,7 +63,7 @@ public class RoomServiceImpl implements RoomServiceInterface {
             throw new IllegalArgumentException("Failed to update room with id: " + id);
         }
     }
-    
+
     @Override
     public void deleteRoom(Long id) {
         Room existingRoom = roomDao.findById(id)

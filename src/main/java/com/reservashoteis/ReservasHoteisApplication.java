@@ -7,5 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ReservasHoteisApplication {
     public static void main(String[] args) {
         SpringApplication.run(ReservasHoteisApplication.class, args);
+        System.out.println("Aplicação rodando em: http://localhost:8080");
     }
 }

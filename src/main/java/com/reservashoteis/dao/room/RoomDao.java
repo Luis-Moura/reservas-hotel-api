@@ -44,7 +44,7 @@ public class RoomDao implements RoomDaoInterface{
 
     @Override
     public Optional<Room> findByNumber(int number) {
-        String sql = "SELECT * FROM quartos WHERE number = ?";
+        String sql = "SELECT * FROM quartos WHERE numero = ?";
         List<Room> results = jdbcTemplate.query(sql, roomMapper, number);
         return results.stream().findFirst();
     }
