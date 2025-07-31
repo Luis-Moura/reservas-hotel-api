@@ -22,8 +22,8 @@ public class ReservationDao implements ReservationDaoInterface {
 
     private final RowMapper<Reservation> reservationMapper = (resultSet, rowNum) -> new Reservation(
         resultSet.getLong("id"),
-        resultSet.getLong("id_cliente"),
-        resultSet.getLong("id_quarto"),
+        resultSet.getLong("cliente_id"),
+        resultSet.getLong("quarto_id"),
         resultSet.getDate("data_checkin").toLocalDate(),
         resultSet.getDate("data_checkout").toLocalDate(),
         resultSet.getFloat("valor_total")
@@ -31,7 +31,7 @@ public class ReservationDao implements ReservationDaoInterface {
 
     @Override
     public void save(Reservation reservation) {
-        String sql = "INSERT INTO reservas (id_cliente, id_quarto, data_checkin, data_checkout, valor_total) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO reservas (cliente_id, quarto_id, data_checkin, data_checkout, valor_total) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
             reservation.getIdClient(),
             reservation.getIdRoom(),
@@ -56,7 +56,7 @@ public class ReservationDao implements ReservationDaoInterface {
 
     @Override
     public boolean update(Reservation reservation) {
-        String sql = "UPDATE reservas SET id_cliente = ?, id_quarto = ?, data_checkin = ?, data_checkout = ?, valor_total = ? WHERE id = ?";
+        String sql = "UPDATE reservas SET cliente_id = ?, quarto_id = ?, data_checkin = ?, data_checkout = ?, valor_total = ? WHERE id = ?";
         int rows = jdbcTemplate.update(sql,
             reservation.getIdClient(),
             reservation.getIdRoom(),
