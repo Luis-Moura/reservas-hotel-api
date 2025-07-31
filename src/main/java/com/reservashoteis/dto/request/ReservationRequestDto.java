@@ -3,8 +3,8 @@ package com.reservashoteis.dto.request;
 import java.time.LocalDate;
 
 public record ReservationRequestDto(
-    int idClient,
-    int idRoom,
+    Long idClient,
+    Long idRoom,
     LocalDate checkInDate,
     LocalDate checkOutDate,
     Float totalValue

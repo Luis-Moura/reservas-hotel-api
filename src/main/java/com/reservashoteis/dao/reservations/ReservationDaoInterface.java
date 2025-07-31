@@ -9,11 +9,11 @@ public interface ReservationDaoInterface {
 
     void save(Reservation reservation);
 
-    Optional<Reservation> findById(int id);
+    Optional<Reservation> findById(Long id);
 
     List<Reservation> findAll();
 
     boolean update(Reservation reservation);
 
-    boolean delete(int id);
+    boolean delete(Long id);
 }

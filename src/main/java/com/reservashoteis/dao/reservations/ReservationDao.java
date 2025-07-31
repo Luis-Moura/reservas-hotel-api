@@ -21,9 +21,9 @@ public class ReservationDao implements ReservationDaoInterface {
     }
 
     private final RowMapper<Reservation> reservationMapper = (resultSet, rowNum) -> new Reservation(
-        resultSet.getInt("id"),
-        resultSet.getInt("id_cliente"),
-        resultSet.getInt("id_quarto"),
+        resultSet.getLong("id"),
+        resultSet.getLong("id_cliente"),
+        resultSet.getLong("id_quarto"),
         resultSet.getDate("data_checkin").toLocalDate(),
         resultSet.getDate("data_checkout").toLocalDate(),
         resultSet.getFloat("valor_total")
@@ -42,7 +42,7 @@ public class ReservationDao implements ReservationDaoInterface {
     }
 
     @Override
-    public Optional<Reservation> findById(int id) {
+    public Optional<Reservation> findById(Long id) {
         String sql = "SELECT * FROM reservas WHERE id = ?";
         List<Reservation> result = jdbcTemplate.query(sql, reservationMapper, id);
         return result.stream().findFirst();
@@ -69,7 +69,7 @@ public class ReservationDao implements ReservationDaoInterface {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(Long id) {
         String sql = "DELETE FROM reservas WHERE id = ?";
         int rows = jdbcTemplate.update(sql, id);
         return rows > 0;

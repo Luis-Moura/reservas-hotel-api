@@ -4,14 +4,14 @@ import java.time.LocalDate;
 
 public class Reservation {
 
-    private int idReservation;
-    private int idClient;
-    private int idRoom;
+    private Long idReservation;
+    private Long idClient;
+    private Long idRoom;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private Float totalValue;
 
-    public Reservation(int idClient, int idRoom, LocalDate checkInDate, LocalDate checkOutDate, Float totalValue) {
+    public Reservation(Long idClient, Long idRoom, LocalDate checkInDate, LocalDate checkOutDate, Float totalValue) {
         if (idClient <= 0) {
             throw new IllegalArgumentException("Client ID must be greater than zero");
         }
@@ -39,7 +39,7 @@ public class Reservation {
         this.totalValue = totalValue;
     }
 
-    public Reservation(int idReservation, int idClient, int idRoom, LocalDate checkInDate, LocalDate checkOutDate, Float totalValue) {
+    public Reservation(Long idReservation, Long idClient, Long idRoom, LocalDate checkInDate, LocalDate checkOutDate, Float totalValue) {
         this(idClient, idRoom, checkInDate, checkOutDate, totalValue);
         if (idReservation <= 0) {
             throw new IllegalArgumentException("Reservation ID must be greater than zero");
@@ -48,33 +48,33 @@ public class Reservation {
     }
 
 
-    public int getIdReservation() {
+    public Long getIdReservation() {
         return idReservation;
     }
 
-    public void setIdReservation(int idReservation) {
+    public void setIdReservation(Long idReservation) {
         if (idReservation <= 0) {
             throw new IllegalArgumentException("Reservation ID must be greater than zero");
         }
         this.idReservation = idReservation;
     }
 
-    public int getIdClient() {
+    public Long getIdClient() {
         return idClient;
     }
 
-    public void setIdClient(int idClient) {
+    public void setIdClient(Long idClient) {
         if (idClient <= 0) {
             throw new IllegalArgumentException("Client ID must be greater than zero");
         }
         this.idClient = idClient;
     }
 
-    public int getIdRoom() {
+    public Long getIdRoom() {
         return idRoom;
     }
 
-    public void setIdRoom(int idRoom) {
+    public void setIdRoom(Long idRoom) {
         if (idRoom <= 0) {
             throw new IllegalArgumentException("Room ID must be greater than zero");
         }

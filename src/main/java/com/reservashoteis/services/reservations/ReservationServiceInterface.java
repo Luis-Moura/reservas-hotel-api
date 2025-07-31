@@ -9,11 +9,11 @@ public interface ReservationServiceInterface {
 
     void createReservation(ReservationRequestDto reservationRequestDto);
 
-    Reservation findReservationById(int id);
+    Reservation findReservationById(Long id);
 
     List<Reservation> findAllReservations();
 
-    void updateReservation(int id, ReservationRequestDto reservationRequestDto);
+    void updateReservation(Long id, ReservationRequestDto reservationRequestDto);
 
-    void deleteReservation(int id);
+    void deleteReservation(Long id);
 }
