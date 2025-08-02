@@ -2,6 +2,7 @@ package com.reservashoteis.controller;
 
 import com.reservashoteis.dto.request.ClientRequestDto;
 import com.reservashoteis.dto.response.ClientResponseDto;
+import com.reservashoteis.dto.response.ClientSummaryResponseDto;
 import com.reservashoteis.model.Client;
 import com.reservashoteis.services.client.ClientServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,7 @@ public class ClientController {
         ClientResponseDto response = new ClientResponseDto(
                 client.getId(),
                 client.getName(),
-                client.getEmail()
-        );
+                client.getEmail());
 
         return ResponseEntity.ok(response);
     }
@@ -63,4 +63,11 @@ public class ClientController {
         clientService.deleteClient(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping("/summary")
+    public ResponseEntity<List<ClientSummaryResponseDto>> getClientSummaries() {
+        List<ClientSummaryResponseDto> summaries = clientService.findClientSummaries();
+        return ResponseEntity.ok(summaries);
+    }
+
 }
