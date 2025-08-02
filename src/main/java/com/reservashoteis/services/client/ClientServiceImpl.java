@@ -2,6 +2,7 @@ package com.reservashoteis.services.client;
 
 import com.reservashoteis.dao.client.ClientDaoInterface;
 import com.reservashoteis.dto.request.ClientRequestDto;
+import com.reservashoteis.dto.response.ClientSummaryResponseDto;
 import com.reservashoteis.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,4 +80,10 @@ public class ClientServiceImpl implements ClientServiceInterface {
             throw new IllegalArgumentException("Failed to delete client with id: " + id);
         }
     }
+
+    @Override
+    public List<ClientSummaryResponseDto> findClientSummaries() {
+        return clientDao.findClientSummaries();
+    }
+
 }
