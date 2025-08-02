@@ -1,5 +1,6 @@
 package com.reservashoteis.dao.client;
 
+import com.reservashoteis.dto.response.ClientSummaryResponseDto;
 import com.reservashoteis.model.Client;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface ClientDaoInterface {
     boolean update(Client client);
 
     boolean delete(Long id);
+
+    List<ClientSummaryResponseDto> findClientSummaries();
 }
