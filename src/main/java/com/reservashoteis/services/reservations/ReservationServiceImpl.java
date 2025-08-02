@@ -22,11 +22,6 @@ public class ReservationServiceImpl implements ReservationServiceInterface {
 
     @Override
     public void createReservation(ReservationRequestDto dto) {
-        Room room = roomDao.findById(dto.idRoom())
-            .orElseThrow(() -> new IllegalArgumentException("Room not found with id: " + dto.idRoom()));
-
-        long days = ChronoUnit.DAYS.between(dto.checkInDate(), dto.checkOutDate());
-
         Reservation reservation = new Reservation(
             dto.idClient(),
             dto.idRoom(),
