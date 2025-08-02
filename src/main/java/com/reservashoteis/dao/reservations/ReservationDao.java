@@ -31,13 +31,12 @@ public class ReservationDao implements ReservationDaoInterface {
 
     @Override
     public void save(Reservation reservation) {
-        String sql = "INSERT INTO reservas (cliente_id, quarto_id, data_checkin, data_checkout, valor_total) VALUES (?, ?, ?, ?, ?)";
+        String sql = "CALL realizar_reserva(?, ?, ?, ?)";
         jdbcTemplate.update(sql,
-            reservation.getIdClient(),
-            reservation.getIdRoom(),
+            reservation.getIdClient().intValue(),
+            reservation.getIdRoom().intValue(),
             reservation.getCheckInDate(),
-            reservation.getCheckOutDate(),
-            reservation.getTotalValue()
+            reservation.getCheckOutDate()
         );
     }
 

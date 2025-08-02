@@ -26,14 +26,12 @@ public class ReservationServiceImpl implements ReservationServiceInterface {
             .orElseThrow(() -> new IllegalArgumentException("Room not found with id: " + dto.idRoom()));
 
         long days = ChronoUnit.DAYS.between(dto.checkInDate(), dto.checkOutDate());
-        float totalValue = room.getDailyPrice() * days;
 
         Reservation reservation = new Reservation(
             dto.idClient(),
             dto.idRoom(),
             dto.checkInDate(),
-            dto.checkOutDate(),
-            totalValue
+            dto.checkOutDate()
         );
 
         reservationDao.save(reservation);

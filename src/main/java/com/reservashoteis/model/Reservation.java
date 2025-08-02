@@ -39,6 +39,29 @@ public class Reservation {
         this.totalValue = totalValue;
     }
 
+    public Reservation(Long idClient, Long idRoom, LocalDate checkInDate, LocalDate checkOutDate) {
+        if (idClient <= 0) {
+            throw new IllegalArgumentException("Client ID must be greater than zero");
+        }
+
+        if (idRoom <= 0) {
+            throw new IllegalArgumentException("Room ID must be greater than zero");
+        }
+
+        if (checkInDate == null || checkOutDate == null) {
+            throw new IllegalArgumentException("Dates cannot be null");
+        }
+
+        if (!checkOutDate.isAfter(checkInDate)) {
+            throw new IllegalArgumentException("Check-out date must be after check-in date");
+        }
+
+        this.idClient = idClient;
+        this.idRoom = idRoom;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+    }
+
     public Reservation(Long idReservation, Long idClient, Long idRoom, LocalDate checkInDate, LocalDate checkOutDate, Float totalValue) {
         this(idClient, idRoom, checkInDate, checkOutDate, totalValue);
         if (idReservation <= 0) {
@@ -46,7 +69,6 @@ public class Reservation {
         }
         this.idReservation = idReservation;
     }
-
 
     public Long getIdReservation() {
         return idReservation;

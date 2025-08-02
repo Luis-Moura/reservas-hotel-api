@@ -6,8 +6,7 @@ public record ReservationRequestDto(
     Long idClient,
     Long idRoom,
     LocalDate checkInDate,
-    LocalDate checkOutDate,
-    Float totalValue
+    LocalDate checkOutDate
 ) {
     public ReservationRequestDto {
         if (idClient <= 0) {
@@ -21,9 +20,6 @@ public record ReservationRequestDto(
         }
         if (!checkOutDate.isAfter(checkInDate)) {
             throw new IllegalArgumentException("Check-out date must be after check-in date");
-        }
-        if (totalValue == null || totalValue <= 0) {
-            throw new IllegalArgumentException("Total value must be greater than zero");
         }
     }
 }
