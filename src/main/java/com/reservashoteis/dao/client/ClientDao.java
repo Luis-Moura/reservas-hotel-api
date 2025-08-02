@@ -1,5 +1,6 @@
 package com.reservashoteis.dao.client;
 
+import com.reservashoteis.dto.response.ClientSummaryResponseDto;
 import com.reservashoteis.model.Client;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -16,11 +17,17 @@ public class ClientDao implements ClientDaoInterface {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private final RowMapper<Client> clientMapper = (resultSet, rowNum) ->
-            new Client(
-                    resultSet.getLong("id"),
-                    resultSet.getString("nome"),
-                    resultSet.getString("email")
+    private final RowMapper<Client> clientMapper = (resultSet, rowNum) -> new Client(
+            resultSet.getLong("id"),
+            resultSet.getString("nome"),
+            resultSet.getString("email"));
+
+    private final RowMapper<ClientSummaryResponseDto> clientSummaryMapper = (resultSet, rowNum) ->
+            new ClientSummaryResponseDto(
+                resultSet.getString("nome"),
+                resultSet.getLong("total_de_reservas"),
+                resultSet.getBigDecimal("valor_total_gasto"),
+                resultSet.getDate("primeira_reserva").toLocalDate()
             );
 
     @Override
@@ -61,5 +68,12 @@ public class ClientDao implements ClientDaoInterface {
         String sql = "DELETE FROM clientes WHERE id = ?";
         int rowsAffected = jdbcTemplate.update(sql, id);
         return rowsAffected > 0;
+    }
+
+    @Override
+    public List<ClientSummaryResponseDto> findClientSummaries() {
+        String sql = "SELECT Clientes.nome, COUNT(Reservas.id) AS total_de_reservas, SUM(Quartos.preco_diaria) AS valor_total_gasto,  MIN(Reservas.data_checkin) AS primeira_reserva  FROM Clientes JOIN Reservas ON Clientes.id = Reservas.cliente_id JOIN Quartos ON Reservas.quarto_id = Quartos.id GROUP BY Clientes.nome ORDER BY Clientes.nome;";
+
+        return jdbcTemplate.query(sql, clientSummaryMapper);
     }
 }
