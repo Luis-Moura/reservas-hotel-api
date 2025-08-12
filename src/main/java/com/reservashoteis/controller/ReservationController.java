@@ -20,6 +20,7 @@ import java.util.List;
 @Tag(name = "Reservas", description = "Endpoints para gerenciamento de reservas")
 @RestController
 @RequestMapping("/api/v1/reservations")
+@CrossOrigin(origins = "*")
 public class ReservationController {
 
     @Autowired

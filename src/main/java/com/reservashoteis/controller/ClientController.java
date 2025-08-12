@@ -21,6 +21,7 @@ import java.util.List;
 @Tag(name = "Clientes", description = "Endpoints para gerenciamento de clientes")
 @RestController()
 @RequestMapping("/api/v1/clients")
+@CrossOrigin(origins = "*")
 public class ClientController {
     @Autowired
     private ClientServiceInterface clientService;
