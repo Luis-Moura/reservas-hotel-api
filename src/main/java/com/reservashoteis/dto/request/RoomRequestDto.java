@@ -1,8 +1,16 @@
 package com.reservashoteis.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "DTO de requisição para criação/atualização de quarto")
 public record RoomRequestDto(
+    @Schema(description = "Número do quarto", example = "101", required = true)
     int number,
+
+    @Schema(description = "Tipo do quarto", example = "Suite Executiva", required = true)
     String roomType,
+
+    @Schema(description = "Preço da diária", example = "250.50", required = true)
     Float dailyPrice
 ) {
     public RoomRequestDto {
